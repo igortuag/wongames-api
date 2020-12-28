@@ -5,4 +5,8 @@
  * to customize this service
  */
 
-module.exports = {};
+module.exports = {
+  populate: (params) => {
+    console.log("Chamando o serviço populate.")
+  }
+};
