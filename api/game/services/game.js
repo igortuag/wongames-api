@@ -77,11 +77,13 @@ async function createGames(products) {
       const item = await getByName(product.title, "game");
 
       if (!item) {
-        console.log(`Creating: ${product.title}...`);
-        const game = await strapi.services.game({
+        console.info(`Creating: ${product.title}...`);
+
+        const game = await strapi.services.game.create({
           name: product.title,
-          slug: product.price.amount,
-          release_data: new Date(
+          slug: product.slug.replace(/_/g, "-"),
+          price: product.price.amount,
+          release_date: new Date(
             Number(product.globalReleaseDate) * 1000
           ).toISOString(),
           categories: await Promise.all(
@@ -92,10 +94,12 @@ async function createGames(products) {
               getByName(name, "platform")
             )
           ),
-          developer: [await getByName(product.developer, "developer")],
-          publisher: [await getByName(product.publisher, "publisher")],
+          developers: [await getByName(product.developer, "developer")],
+          publisher: await getByName(product.publisher, "publisher"),
           ...(await getGameInfo(product.slug)),
         });
+
+        return game;
       }
     })
   );
@@ -109,7 +113,7 @@ module.exports = {
       data: { products },
     } = await axios.get(gogApiUrl);
 
-    await createManyToManyData([products[5], products[6]]);
-    await createGames([products[5], products[6]]);
+    await createManyToManyData([products[4], products[5]]);
+    await createGames([products[4], products[5]]);
   },
 };
