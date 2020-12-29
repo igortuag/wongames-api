@@ -16,6 +16,7 @@
     "jsdom": "^16.4.0",
     "knex": "<0.20.0",
     "pg": "latest",
+    "slugify": "^1.4.6",
     "strapi": "3.4.1",
     "strapi-admin": "3.4.1",
     "strapi-connector-bookshelf": "3.4.1",
