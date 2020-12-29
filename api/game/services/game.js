@@ -1,24 +1,39 @@
-'use strict';
+"use strict";
 
-const axios = require('axios');
+const axios = require("axios");
 
 async function getGameInfo(slug) {
-  const jsdom = require('jsdom');
+  const jsdom = require("jsdom");
   const { JSDOM } = jsdom;
-  const body = await axios.get(`https://www.gog.com/game/${slug}`)
+  const body = await axios.get(`https://www.gog.com/game/${slug}`);
   const dom = new JSDOM(body.data);
 
-  const ratingElement = dom.window.document.querySelector('.age-restrictions__icon use')
+  const ratingElement = dom.window.document.querySelector(
+    ".age-restrictions__icon use"
+  );
 
-  console.log(ratingElement)
+  const description = dom.window.document.querySelector(".description");
+
+  return {
+    rating: ratingElement
+      ? ratingElement
+          .getAttribute("xlink:href")
+          .replace(/ _/g, "")
+          .replace(/[^\w-]+/g, "")
+      : "Free",
+    short_description: description.textContent.trim().slice(0, 160),
+    description: description.innerHTML,
+  };
 }
 
 module.exports = {
   populate: async (params) => {
-    const gogApiUrl = `https://www.gog.com/games/ajax/filtered?mediaType=game&page=1&sort=popularity`
+    const gogApiUrl = `https://www.gog.com/games/ajax/filtered?mediaType=game&page=1&sort=popularity`;
 
-    const { data : { products } } = await axios.get(gogApiUrl)
+    const {
+      data: { products },
+    } = await axios.get(gogApiUrl);
 
-    await getGameInfo(products[0].slug);
-  }
+    console.log(await getGameInfo(products[0].slug));
+  },
 };
