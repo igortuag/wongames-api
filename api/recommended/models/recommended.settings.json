@@ -2,12 +2,13 @@
   "kind": "singleType",
   "collectionName": "recommendeds",
   "info": {
-    "name": "recommended"
+    "name": "recommended",
+    "description": ""
   },
   "options": {
     "increments": true,
     "timestamps": true,
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "attributes": {
     "section": {
