@@ -5,4 +5,16 @@
  * to customize this controller
  */
 
-module.exports = {};
+module.exports = {
+ async create(ctx) {
+  const token = await strapi.plugins["users-permissions"].services.jwt.getToken(ctx)
+
+  const body = {
+    ...ctx.request.body,
+    user: token.id
+  }
+
+  const entity = await strapi.services.wishlist.create(body)
+
+ }
+};
