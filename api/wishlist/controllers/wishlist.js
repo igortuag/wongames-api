@@ -19,5 +19,18 @@ module.exports = {
   const entity = await strapi.services.wishlist.create(body)
 
   return sanitizeEntity(entity, { model: strapi.models.wishlist })
+ },
+
+ async update(ctx) {
+  const token = await strapi.plugins["users-permissions"].services.jwt.getToken(ctx)
+
+  const body = {
+    ...ctx.request.body,
+    user: token.id
+  }
+
+  const entity = await strapi.services.wishlist.update(body)
+
+  return sanitizeEntity(entity, { model: strapi.models.wishlist })
  }
 };
