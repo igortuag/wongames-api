@@ -33,6 +33,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/orders/create-payment-intent",
+      "handler": "order.createPaymentIntent",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/orders/:id",
       "handler": "order.update",
