@@ -6,7 +6,9 @@
  */
 
 module.exports = {
-  createPaymentIntent: () => {
-    return "Hello World!";
+  createPaymentIntent: (ctx) => {
+    const { cart } = ctx.request.body;
+
+    return cart;
   }
 };
