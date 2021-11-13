@@ -6,8 +6,20 @@
  */
 
 module.exports = {
-  createPaymentIntent: (ctx) => {
+  createPaymentIntent: async (ctx) => {
     const { cart } = ctx.request.body;
+
+    let games = [];
+
+    cart?.map(async (game) => {
+      const validatedGame = await strapi.services.game.findOne({
+        id: game.id,
+      });
+
+      if(validatedGame) {
+        games.push(validatedGame);
+      }
+    })
 
     return cart;
   }
