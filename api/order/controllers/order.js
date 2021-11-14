@@ -22,6 +22,10 @@ module.exports = {
       }
     }))
 
+    if(!games.length) {
+      ctx.response.status = 404;
+    }
+
     return games;
   }
 };
