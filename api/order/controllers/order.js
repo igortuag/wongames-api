@@ -59,5 +59,7 @@ module.exports = {
 
   create: async (ctx) => {
     const { cart, paymentIntentId, paymentMethod } = ctx.request.body;
+
+    return { cart, paymentIntentId, paymentMethod };
   },
 };
