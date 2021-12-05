@@ -57,5 +57,7 @@ module.exports = {
     }
   },
 
-  create: async (ctx) => {},
+  create: async (ctx) => {
+    const { cart, paymentIntentId, paymentMethod } = ctx.request.body;
+  },
 };
