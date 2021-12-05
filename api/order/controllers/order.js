@@ -56,4 +56,6 @@ module.exports = {
       };
     }
   },
+
+  create: async (ctx) => {},
 };
