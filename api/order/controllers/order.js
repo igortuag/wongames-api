@@ -60,6 +60,10 @@ module.exports = {
   create: async (ctx) => {
     const { cart, paymentIntentId, paymentMethod } = ctx.request.body;
 
+    const token = await strapi.plugins[
+      "users-permissions"
+    ].services.jwt.getToken(ctx);
+
     return { cart, paymentIntentId, paymentMethod };
   },
 };
