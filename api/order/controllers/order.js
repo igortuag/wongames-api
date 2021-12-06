@@ -70,6 +70,6 @@ module.exports = {
       id: userId,
     });
 
-    return { cart, paymentIntentId, paymentMethod };
+    return { cart, paymentIntentId, paymentMethod, userInfo };
   },
 };
