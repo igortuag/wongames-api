@@ -64,6 +64,8 @@ module.exports = {
       "users-permissions"
     ].services.jwt.getToken(ctx);
 
+    const userId = token.id;
+
     return { cart, paymentIntentId, paymentMethod };
   },
 };
