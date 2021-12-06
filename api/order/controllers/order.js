@@ -66,6 +66,10 @@ module.exports = {
 
     const userId = token.id;
 
+    const userInfo = await strapi.query("user", "users-permissions").findOne({
+      id: userId,
+    });
+
     return { cart, paymentIntentId, paymentMethod };
   },
 };
