@@ -21,5 +21,5 @@ const total = async (games) => {
     return acc + game.price;
   }, 0);
 
-  return amount * 100;
+  return Number(amount * 100, toFixed(0));
 };

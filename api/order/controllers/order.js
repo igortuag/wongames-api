@@ -20,11 +20,9 @@ module.exports = {
       };
     }
 
-    const total = games.reduce((acc, game) => {
-      return acc + game.price;
-    }, 0);
+    const amount = await strapi.config.functions.cart.total(games);
 
-    if (total === 0) {
+    if (amount === 0) {
       return {
         freeGames: true,
       };
@@ -32,7 +30,7 @@ module.exports = {
 
     try {
       const paymentIntent = await stripe.paymentIntents.create({
-        amount: total * 100,
+        amount,
         currency: "usd",
         metadata: { integration_check: "accept_a_payment" },
       });
@@ -59,6 +57,8 @@ module.exports = {
     });
 
     const games = await strapi.config.functions.cart.cartItems(cart);
+
+    const amount = await strapi.config.functions.cart.total(games);
 
     return { cart, paymentIntentId, paymentMethod, userInfo };
   },
