@@ -23,3 +23,8 @@ const total = async (games) => {
 
   return Number(amount * 100, toFixed(0));
 };
+
+module.exports = {
+  cartItems,
+  total,
+};
