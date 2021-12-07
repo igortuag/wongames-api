@@ -62,7 +62,14 @@ module.exports = {
 
     const games = await strapi.config.functions.cart.cartItems(cartGamesId);
 
-    const amount = await strapi.config.functions.cart.total(games);
+    const total_in_cents = await strapi.config.functions.cart.total(games);
+
+    const entry = {
+      total_in_cents,
+      payment_intent_id: paymentIntentId,
+      card_brand: null,
+      card_last4: null,
+    };
 
     return { cart, paymentIntentId, paymentMethod, userInfo };
   },
