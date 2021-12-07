@@ -34,7 +34,7 @@ module.exports = {
       const paymentIntent = await stripe.paymentIntents.create({
         amount,
         currency: "usd",
-        metadata: { integration_check: "accept_a_payment" },
+        metadata: { cart: JSON.stringify(cartGamesId) },
       });
 
       return paymentIntent;
