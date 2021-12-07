@@ -1,6 +1,7 @@
 "use strict";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const { sanitizeEntity } = require("strapi-utils");
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/concepts/controllers.html#core-controllers)
