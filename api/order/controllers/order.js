@@ -58,6 +58,8 @@ module.exports = {
       id: userId,
     });
 
+    const games = await strapi.config.functions.cart.cartItems(cart);
+
     return { cart, paymentIntentId, paymentMethod, userInfo };
   },
 };
