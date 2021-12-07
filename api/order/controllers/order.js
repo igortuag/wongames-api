@@ -11,7 +11,9 @@ module.exports = {
   createPaymentIntent: async (ctx) => {
     const { cart } = ctx.request.body;
 
-    const games = await strapi.config.functions.cart.cartItems(cart);
+    const cartGamesId = await strapi.config.functions.cart.cartGamesIds(cart);
+
+    const games = await strapi.config.functions.cart.cartItems(cartGamesId);
 
     if (!games.length) {
       ctx.response.status = 404;
@@ -56,7 +58,9 @@ module.exports = {
       id: userId,
     });
 
-    const games = await strapi.config.functions.cart.cartItems(cart);
+    const cartGamesId = await strapi.config.functions.cart.cartGamesIds(cart);
+
+    const games = await strapi.config.functions.cart.cartItems(cartGamesId);
 
     const amount = await strapi.config.functions.cart.total(games);
 
