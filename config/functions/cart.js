@@ -1,3 +1,9 @@
+const cartGamesIds = async (cart) => {
+  return await cart.map((game) => ({
+    id: game.id,
+  }));
+};
+
 const cartItems = async (cart) => {
   let games = [];
 
@@ -25,6 +31,7 @@ const total = async (games) => {
 };
 
 module.exports = {
+  cartGamesIds,
   cartItems,
   total,
 };
