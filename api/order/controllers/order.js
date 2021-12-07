@@ -69,8 +69,12 @@ module.exports = {
       payment_intent_id: paymentIntentId,
       card_brand: null,
       card_last4: null,
+      user: userInfo,
+      games,
     };
 
-    return { cart, paymentIntentId, paymentMethod, userInfo };
+    const entity = await strapi.services.order.create(entry);
+
+    return sanitizeEntity(entity, { model: strapi.models.order });
   },
 };
