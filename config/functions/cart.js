@@ -15,3 +15,11 @@ const cartItems = async (cart) => {
 
   return games;
 };
+
+const total = async (games) => {
+  const amount = await games.reduce((acc, game) => {
+    return acc + game.price;
+  }, 0);
+
+  return amount * 100;
+};
