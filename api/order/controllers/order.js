@@ -65,6 +65,16 @@ module.exports = {
 
     const total_in_cents = await strapi.config.functions.cart.total(games);
 
+    let paymentInfo;
+    if (total_in_cents !== 0) {
+      try {
+        paymentInfo = await stripe.paymentMethods.retrieve(paymentMethod);
+      } catch (error) {
+        ctx.response.status = 402;
+        return { error: err.message };
+      }
+    }
+
     const entry = {
       total_in_cents,
       payment_intent_id: paymentIntentId,
