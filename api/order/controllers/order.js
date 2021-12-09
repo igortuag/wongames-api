@@ -78,8 +78,8 @@ module.exports = {
     const entry = {
       total_in_cents,
       payment_intent_id: paymentIntentId,
-      card_brand: null,
-      card_last4: null,
+      card_brand: paymentInfo?.card?.brand,
+      card_last4: paymentInfo?.card?.last4,
       user: userInfo,
       games,
     };
