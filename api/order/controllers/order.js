@@ -2,6 +2,7 @@
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { sanitizeEntity } = require("strapi-utils");
+const orderTemplate = require("../../../config/email/order");
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/concepts/controllers.html#core-controllers)
@@ -85,6 +86,23 @@ module.exports = {
     };
 
     const entity = await strapi.services.order.create(entry);
+
+    await strapi.plugins.email.services.email.sendTemplateEmail(
+      {
+        to: userInfo.email,
+        from: "no-reply@wongames.com",
+      },
+      orderTemplate,
+      {
+        user: userInfo,
+        payment: {
+          total: `$ ${total_in_cents / 100}`,
+          card_brand: entry?.card?.brand,
+          card_last4: entry?.card?.last4,
+        },
+        games,
+      }
+    );
 
     return sanitizeEntity(entity, { model: strapi.models.order });
   },
