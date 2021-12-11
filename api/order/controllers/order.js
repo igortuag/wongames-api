@@ -92,7 +92,9 @@ module.exports = {
         to: userInfo.email,
         from: "no-reply@wongames.com",
       },
-      orderTemplate,
+      {
+        templateId: 1,
+      },
       {
         user: userInfo,
         payment: {
