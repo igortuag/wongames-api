@@ -87,7 +87,7 @@ module.exports = {
 
     const entity = await strapi.services.order.create(entry);
 
-    await strapi.plugins.email.services.email.sendTemplateEmail(
+    await strapi.plugins["email-designer"].services.email.sendTemplateEmail(
       {
         to: userInfo.email,
         from: "no-reply@wongames.com",
