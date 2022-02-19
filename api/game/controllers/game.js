@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/concepts/controllers.html#core-controllers)
+ * Read the documentation (https://strapi.io/documentation/v3.x/concepts/controllers.html#core-controllers)
  * to customize this controller
  */
 
@@ -12,10 +12,10 @@ module.exports = {
     const options = {
       sort: "popularity",
       page: "1",
-      ...ctx.query
-    }
+      ...ctx.query,
+    };
 
-    await strapi.services.game.populate(options)
+    await strapi.services.game.populate(options);
 
     ctx.send("Finished populating!");
   },

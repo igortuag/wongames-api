@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "wishlists",
   "info": {
-    "name": "Wishlist"
+    "name": "Wishlist",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -10,7 +11,8 @@
     "draftAndPublish": false
   },
   "attributes": {
-    "users": {
+    "user": {
+      "unique": true,
       "plugin": "users-permissions",
       "model": "user"
     },

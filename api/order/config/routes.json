@@ -26,16 +26,16 @@
     },
     {
       "method": "POST",
-      "path": "/orders",
-      "handler": "order.create",
+      "path": "/orders/create-payment-intent",
+      "handler": "order.createPaymentIntent",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/orders/create-payment-intent",
-      "handler": "order.createPaymentIntent",
+      "path": "/orders",
+      "handler": "order.create",
       "config": {
         "policies": []
       }

@@ -6,6 +6,7 @@ import axios from "axios";
 
 const Wrapper = styled.div`
   padding: 18px 30px;
+
   p {
     margin-top: 1rem;
   }

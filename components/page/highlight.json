@@ -2,8 +2,7 @@
   "collectionName": "components_page_highlights",
   "info": {
     "name": "highlight",
-    "icon": "star",
-    "description": ""
+    "icon": "star"
   },
   "options": {},
   "attributes": {
@@ -15,7 +14,16 @@
       "type": "text",
       "required": true
     },
-    "floatimage": {
+    "background": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": true
+    },
+    "floatImage": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
@@ -39,15 +47,6 @@
         "left"
       ],
       "default": "right"
-    },
-    "background": {
-      "model": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
-      "plugin": "upload",
-      "required": false
     }
   }
 }

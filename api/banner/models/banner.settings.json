@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "collectionName": "banners",
   "info": {
-    "name": "Banner",
+    "name": "banner",
     "description": ""
   },
   "options": {
@@ -32,7 +32,8 @@
     "button": {
       "type": "component",
       "repeatable": false,
-      "component": "page.button"
+      "component": "page.button",
+      "required": true
     },
     "ribbon": {
       "type": "component",

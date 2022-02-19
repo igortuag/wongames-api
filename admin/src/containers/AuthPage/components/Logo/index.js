@@ -1,7 +1,7 @@
-import React from 'react';
-import LogoWon from '../../../../assets/images/logo-won-dark.svg';
-import Img from './Img';
+import React from "react";
+import LogoStrapi from "../../../../assets/images/logo-won-dark.svg";
+import Img from "./Img";
 
-const Logo = () => <Img src={LogoWon} alt="Won Games" />;
+const Logo = () => <Img src={LogoStrapi} alt="Won Games" />;
 
 export default Logo;

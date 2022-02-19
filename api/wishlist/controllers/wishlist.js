@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const { sanitizeEntity } = require("strapi-utils")
+const { sanitizeEntity } = require("strapi-utils");
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/concepts/controllers.html#core-controllers)
@@ -8,28 +8,29 @@ const { sanitizeEntity } = require("strapi-utils")
  */
 
 module.exports = {
- async create(ctx) {
-  const token = await strapi.plugins["users-permissions"].services.jwt.getToken(ctx)
+  async create(ctx) {
+    const token = await strapi.plugins[
+      "users-permissions"
+    ].services.jwt.getToken(ctx);
 
-  const body = {
-    ...ctx.request.body,
-    user: token.id
-  }
+    const body = {
+      ...ctx.request.body,
+      user: token.id,
+    };
 
-  const entity = await strapi.services.wishlist.create(body)
+    const entity = await strapi.services.wishlist.create(body);
+    return sanitizeEntity(entity, { model: strapi.models.wishlist });
+  },
 
-  return sanitizeEntity(entity, { model: strapi.models.wishlist })
- },
-
- async update(ctx) {
-   try {
-     const entity = await strapi.services.wishlist.update(
-       { id: ctx.params.id },
-       ctx.request.body
-     )
-     return sanitizeEntity(entity, { model: strapi.models.wishlist })
-   } catch (error) {
-     throw strapi.errors.unauthorized(err)
-   }
- }
+  async update(ctx) {
+    try {
+      const entity = await strapi.services.wishlist.update(
+        { id: ctx.params.id },
+        ctx.request.body
+      );
+      return sanitizeEntity(entity, { model: strapi.models.wishlist });
+    } catch (err) {
+      throw strapi.errors.unauthorized(err);
+    }
+  },
 };

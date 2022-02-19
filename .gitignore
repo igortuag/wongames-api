@@ -67,7 +67,6 @@ $RECYCLE.BIN/
 
 .tmp
 *.log
-*.sql
 *.sqlite
 *.sqlite3
 
@@ -95,6 +94,7 @@ results
 node_modules
 .node_history
 
+
 ############################
 # Tests
 ############################
@@ -109,6 +109,6 @@ coverage
 .env
 license.txt
 exports
-*.cache
+.cache
 build
 .strapi-updater.json
