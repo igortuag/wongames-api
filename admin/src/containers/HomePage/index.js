@@ -1,3 +1,9 @@
+/*
+ *
+ * HomePage
+ *
+ */
+/* eslint-disable */
 import React, { memo } from "react";
 import { FormattedMessage } from "react-intl";
 import PageTitle from "../../components/PageTitle";
@@ -15,7 +21,7 @@ import SocialLink from "./SocialLink";
 const FIRST_BLOCK_LINKS = [
   {
     link:
-      "https://strapi.io/documentation/developer-docs/latest/getting-started/quick-start.html#_4-create-a-category-content-type",
+      "https://strapi.io/documentation/v3.x/getting-started/quick-start.html#_4-create-a-category-content-type",
     contentId: "app.components.BlockLink.documentation.content",
     titleId: "app.components.BlockLink.documentation",
   },
@@ -32,8 +38,12 @@ const SOCIAL_LINKS = [
     link: "https://github.com/React-avancado/",
   },
   {
+    name: "Slack",
+    link: "https://bit.ly/will-slack",
+  },
+  {
     name: "Twitter",
-    link: "https://twitter.com/igortuag",
+    link: "https://twitter.com/Willian_Justen",
   },
 ];
 
@@ -50,7 +60,7 @@ const HomePage = () => {
               <h2 id="mainHeader">Bem vindo a Won Games!</h2>
               <P>
                 Ao lado você pode inserir diferentes jogos, categorias e
-                publishers para a nossa maravilhosa loja de jogos!
+                publishers para a nossa maravilhosa loja de jogos!{" "}
               </P>
               <Separator style={{ marginTop: 37, marginBottom: 36 }} />
               <div style={{ display: "flex", justifyContent: "space-between" }}>

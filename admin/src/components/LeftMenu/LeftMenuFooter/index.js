@@ -1,12 +1,24 @@
-import React from 'react';
+/**
+ *
+ * LeftMenuFooter
+ *
+ */
 
-import Wrapper from './Wrapper';
+import React from "react";
+
+import Wrapper from "./Wrapper";
 
 function LeftMenuFooter() {
   return (
     <Wrapper>
       <div className="poweredBy">
-        <a key="website" href="https://reactavancado.com.br" target="_blank" rel="noopener noreferrer">
+        <span>Mantido por </span>
+        <a
+          key="website"
+          href="https://reactavancado.com.br"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           React Avançado
         </a>
       </div>

@@ -10,6 +10,7 @@ const Wrapper = styled.div`
     width: ${theme.main.sizes.leftMenu.width};
     background: ${theme.main.colors.won.blueLight};
 
+    /* scrollbar overrides */
     * {
       ::-webkit-scrollbar {
         width: 7px;

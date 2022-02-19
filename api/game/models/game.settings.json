@@ -2,13 +2,11 @@
   "kind": "collectionType",
   "collectionName": "games",
   "info": {
-    "name": "game",
-    "description": ""
+    "name": "game"
   },
   "options": {
     "increments": true,
-    "timestamps": true,
-    "draftAndPublish": true
+    "timestamps": true
   },
   "attributes": {
     "name": {
@@ -41,14 +39,12 @@
     "rating": {
       "type": "enumeration",
       "enum": [
-        "L",
-        "BR_10",
-        "BR_12",
-        "BR_14",
-        "BR_16",
-        "BR_18",
-        "esrb_m",
-        "Free"
+        "BR0",
+        "BR10",
+        "BR12",
+        "BR14",
+        "BR16",
+        "BR18"
       ]
     },
     "cover": {

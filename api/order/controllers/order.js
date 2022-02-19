@@ -1,21 +1,18 @@
 "use strict";
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 const { sanitizeEntity } = require("strapi-utils");
 const orderTemplate = require("../../../config/email-templates/order");
-
-/**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/concepts/controllers.html#core-controllers)
- * to customize this controller
- */
 
 module.exports = {
   createPaymentIntent: async (ctx) => {
     const { cart } = ctx.request.body;
 
-    const cartGamesId = await strapi.config.functions.cart.cartGamesIds(cart);
+    // simplify cart data
+    const cartGamesIds = await strapi.config.functions.cart.cartGamesIds(cart);
 
-    const games = await strapi.config.functions.cart.cartItems(cartGamesId);
+    // get all games
+    const games = await strapi.config.functions.cart.cartItems(cartGamesIds);
 
     if (!games.length) {
       ctx.response.status = 404;
@@ -24,9 +21,9 @@ module.exports = {
       };
     }
 
-    const amount = await strapi.config.functions.cart.total(games);
+    const total = await strapi.config.functions.cart.total(games);
 
-    if (amount === 0) {
+    if (total === 0) {
       return {
         freeGames: true,
       };
@@ -34,9 +31,9 @@ module.exports = {
 
     try {
       const paymentIntent = await stripe.paymentIntents.create({
-        amount,
+        amount: total,
         currency: "usd",
-        metadata: { cart: JSON.stringify(cartGamesId) },
+        metadata: { cart: JSON.stringify(cartGamesIds) },
       });
 
       return paymentIntent;
@@ -48,34 +45,44 @@ module.exports = {
   },
 
   create: async (ctx) => {
+    // pegar as informações do frontend
     const { cart, paymentIntentId, paymentMethod } = ctx.request.body;
 
+    // pega o token
     const token = await strapi.plugins[
       "users-permissions"
     ].services.jwt.getToken(ctx);
 
+    // pega o id do usuario
     const userId = token.id;
 
-    const userInfo = await strapi.query("user", "users-permissions").findOne({
-      id: userId,
-    });
+    // pegar as informações do usuário
+    const userInfo = await strapi
+      .query("user", "users-permissions")
+      .findOne({ id: userId });
 
-    const cartGamesId = await strapi.config.functions.cart.cartGamesIds(cart);
+    // simplify cart data
+    const cartGamesIds = await strapi.config.functions.cart.cartGamesIds(cart);
 
-    const games = await strapi.config.functions.cart.cartItems(cartGamesId);
+    // pegar os jogos
+    const games = await strapi.config.functions.cart.cartItems(cartGamesIds);
 
+    // pegar o total (saber se é free ou não)
     const total_in_cents = await strapi.config.functions.cart.total(games);
 
+    // precisa pegar do frontend os valores do paymentMethod
+    // e recuperar por aqui
     let paymentInfo;
     if (total_in_cents !== 0) {
       try {
         paymentInfo = await stripe.paymentMethods.retrieve(paymentMethod);
-      } catch (error) {
+      } catch (err) {
         ctx.response.status = 402;
         return { error: err.message };
       }
     }
 
+    // salvar no banco
     const entry = {
       total_in_cents,
       payment_intent_id: paymentIntentId,
@@ -87,7 +94,8 @@ module.exports = {
 
     const entity = await strapi.services.order.create(entry);
 
-    await strapi.plugins["email-designer"].services.email.sendTemplateEmail(
+    // enviar um email da compra para o usuário
+    await strapi.plugins["email-designer"].services.email.sendTemplatedEmail(
       {
         to: userInfo.email,
         from: "no-reply@wongames.com",
@@ -99,13 +107,14 @@ module.exports = {
         user: userInfo,
         payment: {
           total: `$ ${total_in_cents / 100}`,
-          card_brand: entry?.card?.brand,
-          card_last4: entry?.card?.last4,
+          card_brand: entry.card_brand,
+          card_last4: entry.card_last4,
         },
         games,
       }
     );
 
+    // retornando que foi salvo no banco
     return sanitizeEntity(entity, { model: strapi.models.order });
   },
 };
