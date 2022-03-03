@@ -17,5 +17,5 @@ ENV DATABASE_CLIENT=postgres
 
 RUN yarn build
 
-EXPOSE 1337
+EXPOSE 1338
 CMD ["yarn", "start"]
