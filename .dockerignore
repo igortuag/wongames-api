@@ -1,8 +1,8 @@
-**/.DS_Store
 **/node_modules/
+**/.DS_Store
 *.sql
-.vscode*
 .dockerignore
+.vscode*
 .env*
 .git*
 .idea
